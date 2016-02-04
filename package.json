@@ -1,0 +1,19 @@
+{
+  "name": "userlist",
+  "version": "1.0.0",
+  "description": "simple backbone app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeyvi/userlist.git"
+  },
+  "author": "jeyvi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeyvi/userlist/issues"
+  },
+  "homepage": "https://github.com/jeyvi/userlist#readme"
+}
