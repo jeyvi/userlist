@@ -62,7 +62,7 @@ var ApplicationRouter = Backbone.Router.extend({
 });
 
 
-tpl.loadTemplates(['header', 'details', 'item', 'thead', 'item_op', 'thead_op', 'balance'], function() {
+tpl.loadTemplates(['header', 'details', 'item', 'item_op', 'thead_op', 'balance'], function() {
 	window.app = new ApplicationRouter();
 	Backbone.history.start();
 });
