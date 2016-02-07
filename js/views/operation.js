@@ -8,14 +8,14 @@ window.OperationListView = Backbone.View.extend({
 
         var self = this;
         this.model.bind("add", function (operation) {
-            $(self.el).append(new OperationListItemView({model:operation}).render().el).addClass('responsive-table');
+            $(self.el).append(new OperationListItemView({model:operation}).render().el).addClass('responsive-table bordered');
         });
     },
  
     render:function (eventName) {
         $(this.el).append(tpl.get('thead_op'));
         _.each(this.model.models, function (operation) {
-            $(this.el).append(new OperationListItemView({model:operation}).render().el).addClass('responsive-table');
+            $(this.el).append(new OperationListItemView({model:operation}).render().el).addClass('responsive-table bordered');
         }, this);
         return this;
     }

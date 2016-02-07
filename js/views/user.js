@@ -8,7 +8,7 @@ window.UserListView = Backbone.View.extend({
 
         var self = this;
         this.model.bind("add", function (user) {
-            $(self.el).append(new UserListItemView({model:user}).render().el).addClass('collection side-nav fixed');
+            $(self.el).append(new UserListItemView({model:user}).render().el).addClass('collection');
         });
     },
  
@@ -76,12 +76,17 @@ window.UserView = Backbone.View.extend({
  
     render:function (eventName) {
         var json = this.model.toJSON();
+
         $(this.el).html(this.template(json));
         $(this.el).find('#money').html(json.balance?'attach_money':'money_off');
         var $date = $(this.el).find('#datetime');
         $date.val(json.register_date.replace('+00:00',''));
         $(this.el).find('#enabled')[0].checked = json.enabled;
-
+        if (json.user_id)
+        {
+            var num = Math.round((json.user_id.replace('user_',''))*1 / 10);
+            $(this.el).find(".image-container .circle").attr('src', 'http://lorempixel.com/400/400/people/'+num );
+        }
         this.renderOperations();
 
         this.Balance = new Balance({user_id:json.user_id});

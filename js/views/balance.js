@@ -21,7 +21,6 @@ window.BalanceView = Backbone.View.extend({
      },
  
     render:function (eventName) {
-        console.log(this.model);
         var json = this.model.toJSON();
         $(this.el).html(this.template(json));
         if (json.amount && json.amount!=this.val) {
