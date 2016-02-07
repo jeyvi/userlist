@@ -3,6 +3,23 @@ main{
     padding-left: 240px;
 }
 }
+
+@media only screen and (max-width: 993px){
+  
+    body ul.side-nav.fixed ul
+    {
+        margin-bottom: 50px;
+    }
+
+    body ul.side-nav.fixed li.logo {
+        position: fixed;
+        left: 10px;
+        z-index: 10;
+        bottom: 10px;
+        margin: 0;
+    }
+}
+
 main
 {
     position: absolute;
