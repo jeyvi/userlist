@@ -117,9 +117,9 @@ window.UserView = Backbone.View.extend({
 
         if (this.model.isNew()) {
             var self = this;
-            self.model.sync('create', this.model)
             app.userList.create(this.model, {
                 success: function() {
+                    self.model.sync('create', self.model);
                     app.navigate('user/'+self.model.id, false);
                 }
             });

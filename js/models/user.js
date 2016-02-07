@@ -23,7 +23,7 @@ window.User = Backbone.Model.extend({
  
 window.UserList = Backbone.Collection.extend({
     model:User,
-    url:"https://livedemo.xsolla.com/fe/test-task/isaev/users?offset=0&limit=10",
+    url:"https://livedemo.xsolla.com/fe/test-task/isaev/users?offset=0&limit=100",
 	parse: function(resp, xhr) {
 		return resp.data;
 	}
