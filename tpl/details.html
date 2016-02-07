@@ -1,53 +1,65 @@
-<div class="form-left-col">
-    <label>Id:</label>
-    <input id="wineId" name="id" type="text" value="<%= user_id %>" disabled />
+<div class="row">
+  <div class="col s12 m3 center-on-small-only text-center">
+    <div class="image-container">
+      <img  class="circle responsive-img" src="http://lorempixel.com/400/400/people/1">
+    </div>
+    <a class="btn-flat" id="edit">
+	      edit
+    </a>
 
-    <label>Name:</label>
-    <input type="text" id="name" name="name" value="<%= user_name %>" required/>
+    <br><br>
+    <h5>Balance</h5>
+    <div class="input-field">
+      <i id="money" class="material-icons prefix"></i>
+      <input id="coins" disabled type="number" class="validate" value="<%= balance %>">
+    </div>
+    <a class="waves-effect waves-light btn modal-trigger" href="#addcoins">Add coins</a>
+  </div>
+  <div class="col s12 m9">
+    <h4>
+    	<%= user_name %>
+    	<br>
+    	<small class="blue-grey-text"><%= user_custom %></small>
+    </h4>
+    <a href="mailto:<%= email %>"><%= email %></a>
+    <div id="editmode">
 
-    <label>Grapes:</label>
-    <input type="text" id="grapes" name="grapes" value="<%= user_custom %>"/>
+	    <div class="input-field">
+          <i class="material-icons prefix"></i>
+          <input id="user_name"  type="text" class="validate" value="<%= user_name %>">          
+          <label class="active" for="user_name">Name</label>
+        </div>    	
+    
+     	<div class="input-field">
+          <i class="material-icons prefix"></i>
+          <input id="user_custom"  type="text" class="validate" value="<%= user_custom %>">
+          <label class="active" for="user_custom">Custom Name</label>
+        </div>   
 
-    <label>Country:</label>
-    <input type="text" id="country" name="country" value="<%= email %>"/>
-
-    <label>Region:</label>
-    <input type="text" id="region" name="region"  value="<%= register_date %>"/>
-
-    <label>Year:</label>
-    <input type="text" id="year" name="year"  value="<%= balance %>"/>
-
-    <label>Year:</label>
-    <input type="text" id="year" name="year"  value="<%= enabled %>"/>
-
-    <button class="save">Save</button>
-    <button class="delete">Delete</button>
-</div>
-
+	    <div class="input-field">
+          <i class="material-icons prefix">send</i>
+          <input id="email"  type="email" class="validate" value="<%= email %>">
+          <label class="active" for="email">Email</label>
+        </div>
 
 
-<div id="details" class="demo-card-wide mdl-card mdl-shadow--2dp">
-	  <div class="mdl-card__title">
-	    <h2 class="mdl-card__title-text"><%= user_name %>
-	      <small><%= user_custom %>sdfsd</small></h2>
-	  </div>
-	  <div class="mdl-card__supporting-text">
-	    <i class="material-icons">email</i>&nbsp;&nbsp;<a class="mail-link" href="mailto:<%= email %>"><%= email %></a>
-	    <br>
-	    <i id="money" class="material-icons"></i>&nbsp;&nbsp;<span class="mail-link"><%= balance %></a>
-	    <br>
-	    <i class="material-icons">access_time</i>&nbsp;&nbsp;<span class="mail-link" id="date-time">
-	    	<input type="datetime-local" value="<%= register_date %>">
-	    </span>
-	  </div>
-	  <div class="mdl-card__actions mdl-card--border">
-	    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-	      Close card
-	    </a>
-	  </div>
-	  <div class="mdl-card__menu">
-	    <a href="#operation/<%= user_id %>" id="edit" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-	      <i class="material-icons">view_list</i>
-	    </a>
-	  </div>
+        <div class="input-field">
+		    <div class="switch">
+			    <label>
+			      Disabled
+			      <input id="enabled" type="checkbox" >
+			      <span class="lever"></span>
+			      Enabled
+			    </label>
+			</div>
+			<br clear="all">
+		</div>
+		
+<br clear="all">
+   		<a class="waves-effect waves-light btn save">Save</a>
+   		<a id="cancel" class="waves-effect waves-light btn teal lighten-4">Cancel</a>
+    </div>
+
+    
+  </div>
 </div>

@@ -1,18 +1,59 @@
-#add
+@media only screen and (min-width: 993px){
+main{
+    padding-left: 240px;
+}
+}
+main
 {
     position: absolute;
-    left: 20px;
-    top: 36px;
+    width: 100%;
+    height: 100%;
 }
 
-#sidebar 
+#actions table thead th:first-child,
+#actions table tr td:first-child
+{
+    text-align: right;
+    padding-right:25px;
+}
+
+#editmode
+{
+    display: none;
+}
+
+#button-collapse
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+
+.input-field .switch label
+{
+    margin-left:2.5rem;
+}
+
+ul.side-nav.fixed li.logo {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 50px;
+    background: transparent;
+}
+.text-center
 {
     text-align: center;
 }
-
-#sidebar table
+.collection
 {
-    margin:0 auto;
+    border-right:0;
+    border-left:0;
+}
+
+ul.side-nav.fixed li.logo a {
+    display: inline-block;
+    padding: 0;    
 }
 
 .center-card

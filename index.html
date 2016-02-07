@@ -15,26 +15,23 @@
 	
 	<body>
 
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		<header id="header" class="mdl-layout__header"></header>
-		<main class="mdl-layout__content">
-			<div class="mdl-grid">
-			  <div class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet ">
-			  	<div id="sidebar" class="mdl-shadow--4dp">
-			  		<div class="mdl-spinner mdl-js-spinner is-active"></div> 
-			  	</div>
-			  </div>
-			  <div id="content" class="mdl-cell mdl-cell--7-col mdl-cell--4-col-tablet ">
-			  </div>			 
-			  
-			  	<div class="center-card">
-			  		<div class="two-side-card">
-			  			<div id="content" class="front"></div>
-			  			<div id="actions" class="back"></div>
-			  		</div>
-			  	</div>			  
+		<header>
+
+			<a id="button-collapse" href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a>
+			<ul id="nav-mobile" class="side-nav fixed">
+				<li class="logo" id="header"></li>
+				<li class="no-padding" id="sidebar"></li>
+			</ul>
+		</header>
+		<main class="grey lighten-5">
+			<div class="container">
+				<div id="content" class="section" ></div>
 			</div>
+			<div id="actions" class="section" ></div>
 		</main>
-	</div>
+
+		 <div id="addcoins" class="modal">
+		 </div>
+
 	</body>
 </html>

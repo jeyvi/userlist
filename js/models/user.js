@@ -10,6 +10,14 @@ window.User = Backbone.Model.extend({
         "balance":0,
         "enabled":false
     },
+    sync: function (method, model, options) {
+        
+        if (method=='create'){ 
+            this.idAttribute = "id";
+            model.set({'user_id':"user_"+Math.round(Math.random()*100)});
+        }
+        return Backbone.sync.apply(this, arguments);
+    },    
     idAttribute: "user_id"
 });
  

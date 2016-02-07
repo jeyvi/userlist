@@ -1,21 +1,20 @@
 // Views
 window.UserListView = Backbone.View.extend({
  
-    tagName:'table',
+    tagName:'ul',
  
     initialize:function () {
         this.model.bind("reset", this.render, this);
 
         var self = this;
         this.model.bind("add", function (user) {
-            $(self.el).append(new UserListItemView({model:user}).render().el).addClass('mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp');
+            $(self.el).append(new UserListItemView({model:user}).render().el).addClass('collection side-nav fixed');
         });
     },
  
     render:function (eventName) {
-        $(this.el).append(tpl.get('thead'));
         _.each(this.model.models, function (user) {
-            $(this.el).append(new UserListItemView({model:user}).render().el).addClass('mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp');
+            $(this.el).append(new UserListItemView({model:user}).render().el).addClass('collection');
         }, this);
         return this;
     }
@@ -24,7 +23,7 @@ window.UserListView = Backbone.View.extend({
 
 window.UserListItemView = Backbone.View.extend({
  
-    tagName:"tr",
+    tagName:"li",
  
     initialize:function () {
         this.template = _.template(tpl.get('item'));
@@ -34,7 +33,7 @@ window.UserListItemView = Backbone.View.extend({
     },
  
     render:function (eventName) {
-        $(this.el).html(this.template(this.model.toJSON()));
+        $(this.el).addClass('no-padding collection-item').html(this.template(this.model.toJSON()));
         return this;
     },
  
@@ -46,35 +45,84 @@ window.UserListItemView = Backbone.View.extend({
 });
  
 window.UserView = Backbone.View.extend({
+
+     tagName: "div", 
  
     initialize:function () {
         this.template = _.template(tpl.get('details'));
-        this.model.bind("change", this.render, this);        
+        this.model.bind("change", this.render, this); 
     },
 
     events: {
+        "change input": "change",
+        "click .save": "saveUser",
+        "click .delete": "deleteUser",
         "click #edit": "operations",
         "click #cancel": "return"
     },
 
+    change: function(event) {
+        var target = event.target;
+        console.log('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + target.value);
+     },
+
     operations:function () {
-        $('.two-side-card').addClass('actions');    
+        $('#editmode').show();    
     },
 
     return:function () {
-        $('.two-side-card').removeClass('actions');    
+        $('#editmode').hide();
     },
  
     render:function (eventName) {
-        $('.two-side-card').removeClass('active');
-        $(this.el).html(this.template(this.model.toJSON()));
-        $(this.el).find('#money').html(this.model.toJSON().balance?'attach_money':'money_off');
-        var $date = $(this.el).find('#date-time input');
-        $date.val(this.model.toJSON().register_date.replace('+00:00',''));
+        var json = this.model.toJSON();
+        $(this.el).html(this.template(json));
+        $(this.el).find('#money').html(json.balance?'attach_money':'money_off');
+        var $date = $(this.el).find('#datetime');
+        $date.val(json.register_date.replace('+00:00',''));
+        $(this.el).find('#enabled')[0].checked = json.enabled;
+
+        this.renderOperations();
+
+        this.Balance = new Balance({user_id:json.user_id});
+        this.Balance.bind("change", this.renderOperations, this); 
+
+        $('#addcoins').html(new BalanceView({model:this.Balance}).render().el);
         
-        setTimeout(function(){$('.two-side-card').addClass('active')}, 300);
 
         return this;
+    },
+
+    renderOperations: function(){
+        var json = this.model.toJSON();
+        this.operationList = new OperationList({user_id:json.user_id, datetime_from:'2015-01-01T00:00:00 UTC', datetime_to:'2017-01-01T00:00:00 UTC'});
+        var that = this;
+        this.operationList.fetch({success: function() {
+            $('#actions').html(new OperationListView({model:that.operationList}).render().el);
+        }});
+    },
+
+    saveUser: function() {
+        this.model.set({
+            user_name: $('#user_name').val(),
+            user_custom: $('#user_custom').val(),
+            email: $('#email').val(),
+            enabled: $('#enabled')[0].checked;
+        });
+
+        if (this.model.isNew()) {
+            var self = this;
+            self.model.sync('create', this.model)
+            app.userList.create(this.model, {
+                success: function() {
+                    app.navigate('user/'+self.model.id, false);
+                }
+            });
+        } else {
+            this.model.save();
+        }
+
+        return false;
     }
 
  

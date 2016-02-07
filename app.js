@@ -1,12 +1,14 @@
 var ApplicationRouter = Backbone.Router.extend({
 	routes: {
 		"": "list",
+        "new":"addUser",
     	"user/:id":"userDetails",
-        "operation/:id":"operationList"
+        "balance/:id":"changeBalance"
 	},
 	initialize: function() {
 		this.headerView = new HeaderView();
 		this.headerView.render();
+        $(".button-collapse").sideNav();
 	},
  
     list:function () {
@@ -15,29 +17,34 @@ var ApplicationRouter = Backbone.Router.extend({
         this.userList.fetch({success: function() {
             $('#sidebar').html(new UserListView({model:app.userList}).render().el);
         }});
-
-        $('.two-side-card').removeClass('actions').removeClass('active');
         
     },
  
     operationList:function (id) {
         this.operationList = new OperationList({user_id:id, datetime_from:'2015-01-01T00:00:00 UTC', datetime_to:'2017-01-01T00:00:00 UTC'});
-        this.operationListView = new OperationListView({model:this.operationList});
-        console.log(this.operationList);
+  
         this.operationList.fetch({success: function() {
-               console.log(this);
-            }});
-        $('.two-side-card').addClass('actions');
-        $('#actions').html(this.operationListView.render().el);
+               $('#actions').html(new OperationListView({model:app.operationList}).render().el);
+        }});
     },
+
+    addUser:function (id) {
+        this.checkClass(function(){
+            this.userView = new UserView({model:new User});
+            $('#content').html(this.userView.render().el);
+            $('#editmode').show();  
+        });
+    },
+
+    changeBalance:function (id) {
+    },    
  
     userDetails:function (id) {
     	this.checkClass(function(){
-	        this.user = app.userList.get(id);
-	        console.log(app.userList);
-	        this.userView = new UserView({model:this.user});
-            $('.two-side-card').removeClass('actions');
-	        $('#content').html(this.userView.render().el);
+	        app.user = app.userList.get(id);
+	        app.userView = new UserView({model:app.user});
+	        $('#content').html(app.userView.render().el);
+            $('.modal-trigger').leanModal();
     	});
     },
 
@@ -55,8 +62,8 @@ var ApplicationRouter = Backbone.Router.extend({
 });
 
 
-tpl.loadTemplates(['header', 'details', 'item', 'thead', 'item_op', 'thead_op', 'actions'], function() {
-	app = new ApplicationRouter();
+tpl.loadTemplates(['header', 'details', 'item', 'thead', 'item_op', 'thead_op', 'balance'], function() {
+	window.app = new ApplicationRouter();
 	Backbone.history.start();
 });
 

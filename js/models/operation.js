@@ -1,6 +1,5 @@
 // Models
 window.Operation = Backbone.Model.extend({
-    urlRoot:"https://livedemo.xsolla.com/fe/test-task/isaev/users",
     defaults:{
         "operation_id":null,
         "transaction_id":"",
