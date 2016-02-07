@@ -107,7 +107,7 @@ window.UserView = Backbone.View.extend({
             user_name: $('#user_name').val(),
             user_custom: $('#user_custom').val(),
             email: $('#email').val(),
-            enabled: $('#enabled')[0].checked;
+            enabled: $('#enabled')[0].checked
         });
 
         if (this.model.isNew()) {
